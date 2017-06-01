@@ -13,7 +13,7 @@ namespace SuggestionBoxAPI.Persistence.Repositories
 
         public SuggestionRepository()
         {
-            context = new SuggestionBoxContext();
+            this.context = new SuggestionBoxContext();
         }
 
         public Suggestion Add(Suggestion suggestion)

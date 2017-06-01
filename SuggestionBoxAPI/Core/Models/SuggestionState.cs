@@ -5,11 +5,9 @@ using System.Web;
 
 namespace SuggestionBoxAPI.Core.Models
 {
-    public class TypeSuggestion
+    public class SuggestionState
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Caption { get; set; }
-        public string ImageUri { get; set; }
+        public string Description { get; set; }
     }
 }

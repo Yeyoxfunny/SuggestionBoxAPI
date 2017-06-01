@@ -8,43 +8,51 @@ namespace SuggestionBoxAPI.Persistence.Repositories
 {
     public class TypeSuggestionRepository : ITypeSuggestionRepository
     {
-        private SuggestionBoxContext context;
-
-        public TypeSuggestionRepository()
-        {
-            context = new SuggestionBoxContext();
-        }
 
         public TypeSuggestion Get(int id)
         {
-            return context.TypeOfSuggestions.FirstOrDefault(x => x.Id == id);
+            using (var context = new SuggestionBoxContext()) {
+                return context.TypeOfSuggestions.FirstOrDefault(x => x.Id == id);
+            }
         }
 
         public IEnumerable<TypeSuggestion> GetAll()
         {
-            return context.TypeOfSuggestions.ToList();
+            using (var context = new SuggestionBoxContext())
+            {
+                return context.TypeOfSuggestions.ToList();
+            }
         }
 
         public TypeSuggestion Add(TypeSuggestion typeOfSuggestion)
         {
-            context.TypeOfSuggestions.Add(typeOfSuggestion);
-            context.SaveChanges();
+            using (var context = new SuggestionBoxContext())
+            {
+                context.TypeOfSuggestions.Add(typeOfSuggestion);
+                context.SaveChanges();
 
-            return typeOfSuggestion;
+                return typeOfSuggestion;
+            }
         }
 
         public void Update(TypeSuggestion typeOfSuggestion)
         {
-            TypeSuggestion entity = context.TypeOfSuggestions.Find(typeOfSuggestion.Id);
-            context.Entry(entity).CurrentValues.SetValues(typeOfSuggestion);
-            context.SaveChanges();
+            using (var context = new SuggestionBoxContext())
+            {
+                TypeSuggestion entity = context.TypeOfSuggestions.Find(typeOfSuggestion.Id);
+                context.Entry(entity).CurrentValues.SetValues(typeOfSuggestion);
+                context.SaveChanges();
+            }
         }
 
         public void Remove(TypeSuggestion typeOfSuggestion)
         {
-            context.TypeOfSuggestions.Attach(typeOfSuggestion);
-            context.TypeOfSuggestions.Remove(typeOfSuggestion);
-            context.SaveChanges();
+            using (var context = new SuggestionBoxContext())
+            {
+                context.TypeOfSuggestions.Attach(typeOfSuggestion);
+                context.TypeOfSuggestions.Remove(typeOfSuggestion);
+                context.SaveChanges();
+            }
         }
     }
 }

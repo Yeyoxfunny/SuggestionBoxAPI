@@ -11,22 +11,47 @@ namespace SuggestionBoxAPI.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SuggestionBoxAPI.Persistence.SuggestionBoxContext";
         }
 
         protected override void Seed(SuggestionBoxAPI.Persistence.SuggestionBoxContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
             context.TypeOfSuggestions.AddOrUpdate(
-              new TypeSuggestion { Title = "Sugerencias de la charla", Caption = "¿Tienes algún comentario acerca de la charla?" },
-              new TypeSuggestion { Title = "¿Tienes preguntas?", Caption = "¿Tienes algún comentario acerca de la charla?" },
-              new TypeSuggestion { Title = "Sugerencias al instructor", Caption = "¿Deseas sugerir algún comentario al instructor?" }
+              new TypeSuggestion { Id = 1, Title = "Sugerencias de la charla", Caption = "¿Tienes algún comentario acerca de la charla?", ImageUri = "localhost:60024/www/images/TypeSuggestions/icon_1.png" },
+              new TypeSuggestion { Id = 2, Title = "Sugerencias al instructor", Caption = "¿Deseas sugerir algún comentario al instructor?", ImageUri = "localhost:60024/www/images/TypeSuggestions/icon_2.png" },
+              new TypeSuggestion { Id = 3, Title = "¿Tienes preguntas?", Caption = "¿En qué podemos ayudarte?", ImageUri = "localhost:60024/www/images/TypeSuggestions/icon_3.png" },
+              new TypeSuggestion { Id = 4, Title = "Feedback", Caption = "Envíanos alguna retroalimentación", ImageUri = "localhost:60024/www/images/TypeSuggestions/icon_4.png" }
             );
 
+            context.SuggestionState.AddOrUpdate(
+                new SuggestionState { Id = 1, Description = "Pendiente" },
+                new SuggestionState { Id = 2, Description = "Leído" },
+                new SuggestionState { Id = 3, Description = "Respondido" }
+            );
+
+            context.Suggestions.AddOrUpdate(
+                new Suggestion
+                {
+                    Id = 1,
+                    Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    UserName = "Sergio Morales",
+                    Email = "sergiomorales811@gmail.com",
+                    CreationDate = DateTime.Now,
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    TypeSuggestionId = 1,
+                    StateId = 1
+                },
+                new Suggestion
+                {
+                    Id = 2,
+                    Title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    UserName = "Danilo Hernandez",
+                    Email = "smorales@intergrupo.com",
+                    CreationDate = DateTime.Now,
+                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    TypeSuggestionId = 1,
+                    StateId = 1
+                }
+            );
         }
     }
 }

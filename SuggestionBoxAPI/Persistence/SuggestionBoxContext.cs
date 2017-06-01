@@ -11,5 +11,12 @@ namespace SuggestionBoxAPI.Persistence
     {
         public DbSet<TypeSuggestion> TypeOfSuggestions { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
+        public DbSet<SuggestionState> SuggestionState { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Suggestion>().Property(x => x.Description).HasColumnType("Text");
+            modelBuilder.Entity<Suggestion>().Property(x => x.CreationDate).HasColumnType("Date");
+        }
     }
 }

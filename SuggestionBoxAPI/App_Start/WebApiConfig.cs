@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SuggestionBoxAPI
 {
@@ -12,7 +13,11 @@ namespace SuggestionBoxAPI
         {
             // Web API configuration and services
 
-            /* Camel Case in Property Names on JSON */
+            /* Enable CORS */
+            EnableCorsAttribute cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            config.EnableCors(cors);
+
+            /* Camel Case in JSON Property Names */
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
 
